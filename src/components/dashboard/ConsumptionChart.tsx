@@ -22,9 +22,14 @@ export const ConsumptionChart = ({ data }: ConsumptionChartProps) => {
                 dataKey="date" 
                 tick={{ fontSize: 12 }}
                 tickFormatter={(value) => {
+                try {
                   const date = new Date(value);
-                  return `${date.getDate()}/${date.getMonth() + 1}`;
-                }}
+                  if (isNaN(date.getTime())) return value;
+                  return `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}`;
+                   } catch (error) {
+                  return value;
+     }
+  }}
               />
               <YAxis tick={{ fontSize: 12 }} />
               <Tooltip 
